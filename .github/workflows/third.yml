@@ -1,0 +1,64 @@
+# Demo CI Workflow (Echo Playground)
+
+name: CI Demo
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 0 - Checkout
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Step 1 - Start
+      - name: Start Workflow
+        run: echo "🚀 CI pipeline started"
+
+      # Step 2 - Setup
+      - name: Setup Phase
+        run: echo "⚙️ Installing dependencies (not really 😄)"
+
+      # Step 3 - Build
+      - name: Build Phase
+        run: echo "🏗️ Building the project..."
+
+      # Step 4 - Test
+      - name: Test Phase
+        run: |
+          echo "🧪 Running tests..."
+          echo "All tests passed (or did they? 😏)"
+
+      # Step 5 - Intentional Failure
+      - name: Simulate Failure
+        run: |
+          echo "💥 Boom! Simulating a failure now"
+          exit 1
+
+      # Step 6 - This will be skipped
+      - name: Post-Build Step (Skipped)
+        run: echo "❌ You won't see this if failure happens"
+
+      # Step 7 - Always runs
+      - name: Cleanup (Always Runs)
+        if: always()
+        run: echo "🧹 Cleaning up no matter what happens"
+
+      # Step 8 - Only on Success
+      - name: Success Handler
+        if: success()
+        run: echo "✅ Everything went perfectly!"
+
+      # Step 9 - Only on Failure
+      - name: Failure Handler
+        if: failure()
+        run: echo "🚨 Pipeline failed! Investigate logs!"
+
+      # Step 10 - Final Step
+      - name: End Workflow
+        if: always()
+        run: echo "🏁 CI pipeline finished"
