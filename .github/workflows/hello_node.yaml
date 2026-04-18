@@ -31,7 +31,7 @@ jobs:
     needs: build-test
 
     steps:
-      - name: Checkout code
+      - name: Checkout code  # Download your repository files onto the runner machine
         uses: actions/checkout@v6
 
 
@@ -48,3 +48,4 @@ jobs:
           push: true
           tags: |
             ${{secrets.DOCKER_USERNAME}}/hello-node-github:latest
+            ${{secrets.DOCKER_USERNAME}}/hello-node-github:${{ github.sha }}
